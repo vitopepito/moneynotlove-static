@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/buefy.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css">
+    <style>
+        .pointer {cursor: pointer;}
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Main Calculator -->
+        
+        <section class="section">
+            <div class="container is-max-desktop">
+                <!-- Header -->
+                <div class="columns">
+                    <div class="column">
+                        <h1 class="title is-2">Stundenlohnrechner für Selbstständige</h1>
+                        <h2 class="subtitle">Berechne deinen individuellen Stundenlohn aus den Kosten und Stunden pro Monat</h2>
+                        <div class="content">
+                            <p><a href="index.html#FAQ">FAQ</a></p>
+                        </div>
+                    </div>
+                    <div class="column">
+
+                        <!-- Totale -->
+                        <div class="box has-background-primary-light">
+                            <div class="title is-4">Berechneter Stundenlohn</div>
+                            <div class="columns is-mobile">
+                                <div class="column">Total Kosten pro Monat</div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">{{ calculatedCosts.toFixed(2) }}</div>
+                                </div>
+                            <div class="columns is-mobile">
+                                <div class="column">Stunden pro Monat</div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">÷ {{ calculatedHours.toFixed(2) }}</div>
+                                </div>
+                            <div class="columns is-mobile has-text-weight-bold">
+                                <div class="column">Stundenlohn</div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">= {{ calculatedRate.toFixed(2) }}</div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forms -->
+                <div class="columns">
+                    <div class="column">
+
+                        <!-- Kosten pro Monat -->
+                        <div class="box">
+                            <div class="title is-4">Kosten pro Monat</div>
+                            
+                            <!-- gewünschter Nettolohn -->
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                    <div class="mb-2 has-text-weight-semibold">gewünschter Nettolohn
+                                            <span @click="lohnModal = true" class="icon pointer">
+                                            <i class="mdi mdi-information-outline"></i>
+                                          </span> 
+                                        </div>
+                                        <b-modal v-model="lohnModal">
+                                            <article class="message is-medium">
+                                                <div class="message-body">
+                                                    Trage hier die Summe ein, die du pro Monat auf dein privates Konto überweisen möchtest und mit der du dein Leben finanzierst. Eine Richtlinie, wie hoch dein Monatslohn sein sollte, gibt dir das <a href="https://www.gate.bfs.admin.ch/salarium/public/index.html" target="_blank">Salarium – Statistischer Lohnrechner</a> des Bundes. 
+                                                </div>
+                                              </article>
+                                        </b-modal>
+                                    <b-field>
+                                        <b-input type="text" required v-model.number="costs.salaryDesired" pattern="[0-9]*" validation-message="Bitte eine Zahl eingeben"></b-input>
+                                    </b-field>
+                                </div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">{{ costs.salaryDesired.toFixed(2) }}</div>
+                                </div>
+                            
+                            <!-- 13. Monatslohn -->
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                    <b-field>
+                                        <b-checkbox v-model="costs.thirteen">13. Monatslohn addieren</b-checkbox>
+                                    </b-field>
+                                </div>
+                                <div class="column is-two-fifths has-text-right is-family-code">+ {{ calculatedThirteen.toFixed(2) }}</div>
+                                </div>
+
+                                <!-- Sozialversicherungen -->
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                    <div class="mb-2 has-text-weight-semibold">Versicherungen <span class="has-text-weight-normal">{{ (calculatedSocial * 100).toFixed(2) }} %</span>
+                                        <!-- Helper Modal Content has to be written first
+                                            <span @click="absenzenModal = true" class="icon">
+                                            <i class="mdi mdi-information-outline mdi-24px"></i>
+                                          </span> 
+                                        -->
+                                        </div>
+                                    <b-collapse :open="true" position="is-bottom" aria-id="contentIdForA11y1">
+                                        <template #trigger="props">
+                                            <a aria-controls="contentIdForA11y1">
+                                                {{ !props.open ? 'mehr' : 'weniger' }}
+                                            </a>
+                                        </template>
+
+                                        <!-- Create checkboxes from array -->
+                                        <div class="field" v-for="item in costs.salarySocialOptions" v-bind:key="item.id">
+                                            <label class="b-checkbox checkbox">
+                                                <input type="checkbox" v-bind:value="item.value" v-model="salarySocialSelected">
+                                                <span class="check"></span>
+                                                <span class="control-label">
+                                                    <input type="checkbox"><span>{{ item.text }} ({{ (item.value * 100).toFixed(2) }}%)</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </b-collapse>
+                                </div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">+ {{ (costs.salaryDesired*this.calculatedSocial).toFixed(2) }}</div>
+                                </div>
+                            
+                                <!-- berufliche Ausgaben -->
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                    <div class="mb-2 has-text-weight-semibold">berufliche Ausgaben
+                                        <!-- Helper Modal Content has to be written first
+                                            <span @click="absenzenModal = true" class="icon">
+                                            <i class="mdi mdi-information-outline mdi-24px"></i>
+                                          </span> 
+                                        -->
+                                        </div>
+                                    <b-field>
+                                        <b-input required v-model.number="costs.spending" pattern="[0-9]*" validation-message="Bitte eine Zahl eingeben"></b-input>
+                                    </b-field>
+                                </div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">+ {{ costs.spending.toFixed(2) }}</div>
+                                </div>
+
+                            <!-- Total -->
+                            <div class="columns is-mobile has-text-weight-bold">
+                                <div class="column">Total Kosten pro Monat</div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">= {{ calculatedCosts.toFixed(2) }}</div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="column">
+
+                        <!-- Stunden pro Monat -->
+                        <div class="box">
+                            <div class="title is-4">Stunden pro Monat</div>
+
+                            <!-- Arbeitsstunden -->
+                            <div class="columns is-mobile">
+                                    <div class="column">
+                                        <div class="mb-2 has-text-weight-semibold">monatliche Arbeitsstunden
+                                            <span @click="arbeitsstundenModal = true" class="icon pointer">
+                                            <i class="mdi mdi-information-outline"></i>
+                                          </span> 
+                                        </div>
+                                        <b-modal v-model="arbeitsstundenModal">
+                                            <article class="message is-medium">
+                                                <div class="message-body">
+                                                    <div class="has-text-weight-semibold">monatliche Arbeitsstunden</div>
+                                                    <div>Diese Rechnung geht von einer Woche mit 40 Arbeitsstunden aus. Nicht jeder Monat und jedes Jahr hat gleich viele Werktage. Auch die Feiertage sind je nach Jahr und sogar Kanton unterschiedlich. Deshalb rechnen wir 260 Arbeitstage pro Jahr, gibt pro Monat 260/12=21.66 Tage. Das sind 173.33 Arbeitsstunden. Für die Feiertage subtrahieren wir 3.17% und kommen auf 168h (<a href="https://pinus-buchhaltungssoftware.ch/wissen-faq/lohnabrechnung-mit-stundenlohn-was-ist-zu-beachten/" target="blank">Quelle Pinus Buchhaltung</a>).</div>
+                                                    <div>Davon werden zusätzlich 6 Stunden abgezogen, das ist die durchschnittliche Abwesenheit am Arbeitsplatz (2010-2019) wegen Krankheit, Unfall, Mutterschaft, Militärdienst etc (<a href="https://www.bfs.admin.ch/bfs/de/home/statistiken/arbeit-erwerb/erwerbstaetigkeit-arbeitszeit/arbeitszeit/absenzen.assetdetail.17124417.html" target="_blank"> Quelle BFS</a>).</div>
+                                                    <div>Total gibt das 162 monatliche Arbeitsstunden.</div>
+                                                </div>
+                                              </article>
+                                        </b-modal>
+                                    <b-field>
+                                        <b-input type="text" required v-model.number="hours.workingHours" pattern="[0-9]*" validation-message="Bitte eine Zahl eingeben"></b-input>
+                                    </b-field>
+                                    </div>
+                                    <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">{{ hours.workingHours }}</div>
+                            </div>
+
+                            <!-- Ausfall durch Krankheit
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                    <div class="has-text-weight-semibold">Absenzen pro Monat
+                                    </div>
+                                    <div class="mb-2 is-small">durch Krankheit, Unfall u.a.</div>
+                                    <b-field>
+                                        <b-numberinput controls-alignment="left" controls-position="compact" v-model="hours.illness" min="0" max="999"></b-numberinput>
+                                        <p class="control">
+                                            <span class="button is-static">h</span>
+                                        </p>
+                                    </b-field>
+                                </div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">- {{ hours.illness }}</div>
+                                </div> -->
+
+                            <!-- Ferien -->
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                    <div class="mb-2 has-text-weight-semibold">Ferien pro Jahr</div>
+                                    <b-field>
+                                        <b-select v-model.number="hours.holidays">
+                                            <option v-for="option in hours.holidayOptions" 
+                                            :value="option.value"
+                                            :key="option.id">
+                                                {{ option.text }}
+                                              </option>
+                                        </b-select>
+                                    </b-field>
+                                </div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">
+                                    - {{ ( hours.workingHours*(hours.holidays) ).toFixed(2) }}</div>
+                                </div>
+
+                            <!-- Nicht verrechenbare Zeit -->
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                    <div class="mb-2 has-text-weight-semibold">Nicht verrechenbare Zeit</div>
+                                    <b-field>
+                                        <b-numberinput controls-alignment="left" controls-position="compact" min="0" max="100" step="5" min-step="1" v-model="hours.unbillable"></b-numberinput>
+                                        <p class="control">
+                                            <span class="button is-static">%</span>
+                                        </p>
+                                    </b-field>
+                                </div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">
+                                    - {{ ( hours.workingHours*(1-hours.holidays)*(hours.unbillable/100) ).toFixed(2) }}</div>
+                                </div>
+
+                            <!-- Total -->
+                            <div class="columns is-mobile has-text-weight-bold">
+                                <div class="column">Total verechenbare Stunden pro Monat</div>
+                                <div class="column is-narrow-mobile is-two-fifths-tablet has-text-right is-family-code">= {{ calculatedHours.toFixed(2) }}</div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About -->
+        <section class="section">
+            <div class="container is-max-desktop">
+                <div class="content">
+                    <h2 id="FAQ" class="title is-3">Häufige Fragen zu unserem Stundenlohnrecher</h2>
+                    <p class="has-text-weight-semibold">Was ist der Stundenlohnrechner?</p>
+                    <p>Wie viel soll man für die eigene Arbeit verlangen? Das beschäftigt alle, die selbstständig Aufträge erfüllen und diese in Rechnung stellen. Wir haben einen einfachen Rechner erstellt, der dir aus deinen eigenen Kosten und Angaben zu Arbeitsstunden einen Stundenlohn berechnet, angepasst auf die Schweiz. </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+
+    </div>
+    
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+<script src="script/buefy.min.js"></script>
+<script src="script/main.js"></script>
+
+</body>
+</html>
