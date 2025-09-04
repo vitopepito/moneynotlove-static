@@ -1,0 +1,274 @@
+<!doctype html>
+<html>
+<head>
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cheatsheet | moneynotlove</title>
+    
+        <meta name="generator" content="GravCMS" />
+    <meta property="og:title" content="moneynotlove" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://moneynotlove.ch" />
+    <meta property="og:image" content="https://moneynotlove.ch/images/logo.png" />
+    <meta property="og:description" content="moneynotlove ist das Netzwerk für selbstständige Kreative und Designer in der Schweiz." />
+    <meta name="description" content="moneynotlove ist das Netzwerk für selbstständige Kreative und Designer in der Schweiz." />
+
+    <link rel="icon" type="image/png" href="https://moneynotlove.ch/user/themes/money/images/logo.png" />
+    <link rel="canonical" href="cheatsheet.html" />
+    
+                        <link href="https://moneynotlove.ch/user/plugins/markdown-notices/assets/notices.css" type="text/css" rel="stylesheet">
+<link href="https://moneynotlove.ch/user/plugins/form/assets/form-styles.css" type="text/css" rel="stylesheet">
+<link href="https://moneynotlove.ch/user/plugins/login/css/login.css" type="text/css" rel="stylesheet">
+<link href="https://moneynotlove.ch/user/themes/money/css/main-position.css" type="text/css" rel="stylesheet">
+<link href="https://moneynotlove.ch/user/themes/money/css/main-grid.css" type="text/css" rel="stylesheet">
+<link href="https://moneynotlove.ch/user/themes/money/css/main-style.css" type="text/css" rel="stylesheet">
+
+
+
+    <!-- Matomo -->
+    <script type="text/javascript">
+      var _paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//analytics.nandoschmidlin.ch/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
+
+  </head>
+
+
+<body id="body">
+
+      <div id="navigation" class="nav nav__wrapper">
+
+  <div class="nav__titles">
+    <div class="nav__title-logo"><img id="logo" src="images/0/1/e/7/d/01e7d0dc9233abf5786e21e61f0668d001ecf032-logo.png"></div>
+    <div class="nav__title-text">moneynotlove</div>
+  </div>
+
+  <div class="nav__links">
+    <label class="nav__toggle" for="show-menu">menu</label>
+    <input type="checkbox" id="show-menu" role="button">
+    <ul id="show-pages" class="nav__links-list">
+                    <li class="nav__link"><a class=" home" href="home.html">About Us</a></li>
+                    <li class="nav__link"><a class=" knowledge-base" href="index.html">Knowledge Base</a></li>
+      
+          </ul>
+  </div>
+</div>
+  
+  <div id="content">
+      <h5 class="banner text-soft">A guide to markdown and how things are done with the custom 'money' theme for the site moneynotlove.ch running on Grav CMS. Reading this should make it easy for anyone to edit the pages of our website. For other instructions, see the <a href="documentation.html">Documentation</a>.</h5>
+<hr />
+<h3>Titles</h3>
+<p>There are six levels of titles, corresponding to the six html <code>&lt;h&gt;</code> tags.</p>
+<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+<h6>Heading 6</h6>
+<h3>Just body copy</h3>
+<p>Paragraphs are the easiest, since they do not require any special code. However, a line-break will only be added if there is a blank line in between two paragraphs. Text formatting can be applied, <em>italics</em>, <strong>bold</strong> and <del>strikethrough</del>.</p>
+<p>Like so.
+Not so.</p>
+<p>If you need additional line-break, add <code>&lt;br /&gt;</code>.</p>
+<p><br /></p>
+<h3>Lists</h3>
+<p>Making list is also very easy, just precede each line with a line.</p>
+<ul>
+<li>First line</li>
+<li>Second line</li>
+<li>Third line</li>
+</ul>
+<ol>
+<li>also</li>
+<li>ordered</li>
+<li>lists</li>
+</ol>
+<h3>Links</h3>
+<p>Links can be added inside copy, for example to our <a href="round-table.html">round-table</a> or and <a href="https://getgrav.org">external site</a>.</p>
+<h3>Images</h3>
+<p>Images are added in a similar manner to links, like so <img alt="logo" src="images/7/6/4/b/9/764b9eb8c7eb00bd259f014cdfcfc09bce4bd351-logo.png" />. If you are using the grav admin panel, it is possible to just drag-and-drop images into the editor. Grav also provides many more functions and filters for images, <a href="https://learn.getgrav.org/content/media">documented here</a></p>
+<h3>Code</h3>
+<pre><code>You can highlight text by indenting it with four spaces. Can be used for code or anything else. All character appear as-is.</code></pre>
+<h3>Some special code</h3>
+<p>In our theme, there is a little bit of special code for certain formatting. We use <a href="https://michelf.ca/projects/php-markdown/extra/">markdown extra</a> syntax for that. This works for the following elements:</p>
+<ul>
+<li>headers (titles)</li>
+<li>links</li>
+<li>images</li>
+</ul>
+<p><br /></p>
+<h6 class="text-soft">Make text coloured.</h6>
+<h6 class="text-hard">In two variants.</h6>
+<h6 class="banner">Created a banner with any content you like. It will add spacing above and below and center the text.</h6>
+<h1 class="banner text-soft">A first level heading with colour!</h1>
+<pre><code>---
+##### A guide to markdown and how things are done with the custom 'money' theme for the site moneynotlove.ch running on Grav CMS. Reading this should make it easy for anyone to edit the pages of our website. For other instructions, see the [Documentation](/documentation). {.banner .text-soft}
+
+---
+
+### Titles
+
+There are six levels of titles, corresponding to the six html `&lt;h&gt;` tags.
+
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+
+### Just body copy
+
+Paragraphs are the easiest, since they do not require any special code. However, a line-break will only be added if there is a blank line in between two paragraphs. Text formatting can be applied, _italics_, __bold__ and ~~strikethrough~~.
+
+Like so.
+But not so.
+
+If you need additional line-break, add `&lt;br /&gt;`.
+
+&lt;br /&gt;
+
+### Lists
+
+Making list is also very easy, just precede each line with a line.
+- First line
+- Second line
+- Third line
+
+1. also
+2. ordered
+3. lists
+
+### Links
+
+Links can be added inside copy, for example to our [round-table](/round-table) or and [external site](https://getgrav.org).
+
+### Images
+
+Images are added in a similar manner to links, like so ![logo](/images/logo.png?resize=200,200). If you are using the grav admin panel, it is possible to just drag-and-drop images into the editor. Grav also provides many more functions and filters for images, [documented here](https://learn.getgrav.org/content/media)
+
+### Code
+
+    You can highlight text by indenting it with four spaces. Can be used for code or anything else. All character appear as-is.
+
+### Some special code
+
+In our theme, there is a little bit of special code for certain formatting. We use [markdown extra](https://michelf.ca/projects/php-markdown/extra/) syntax for that. This works for the following elements:
+- headers (titles)
+- links
+- images
+
+&lt;br /&gt;
+
+###### Make text coloured. {.text-soft}
+
+###### In two variants.  {.text-hard}
+
+###### Created a banner with any content you like. It will add spacing above and below and center the text. {.banner}
+
+# A first level heading with colour! {.banner .text-soft}
+
+---</code></pre>
+  </div>
+
+      <footer id="footer">
+<hr>
+<div class="row space-between">
+
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <p>
+            <a class=" home" href="home.html">About Us</a><br />
+            <a class=" knowledge-base" href="index.html">Knowledge Base</a><br />
+          </p>
+    <p>
+      <a href="privacy.html">Privacy</a>
+    </p>
+  </div>
+
+  <div class="col-xs-12 col-sm-6 col-md-4">
+          <p>moneynotlove<br />
+        Sihlquai 125<br />
+        8005 Zürich<br />
+        Switzerland
+      </p>
+        <p><a href="mailto:&#103;e&#110;e&#114;&#97;&#108;&#115;&#101;&#107;re&#116;a&#114;i&#97;&#116;&#64;&#109;&#111;&#110;e&#121;no&#116;lo&#118;e.c&#104;">
+      g&#101;n&#101;ra&#108;sekreta&#114;&#105;&#97;t&#64;m&#111;ne&#121;n&#111;&#116;&#108;o&#118;&#101;.c&#104;
+      </a></p>
+  </div>
+
+  <div class="col-xs-12 col-sm-6 col-md-4">
+
+    <div id="mc_embed_signup">
+    <form action="https://google.us14.list-manage.com/subscribe/post?u=80723f51c9a7a04e85a51bd95&amp;id=12acd735aa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+      <div id="mc_embed_signup_scroll">
+
+        <div class="form-field mc-field-group">
+        	<div class="form-label">
+            <label for="mce-EMAIL">newsletters? </label>
+          </div>
+        	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="email address">
+        </div>
+      	<div id="mce-responses" class="clear">
+        		<div class="response" id="mce-error-response" style="display:none"></div>
+        		<div class="response" id="mce-success-response" style="display:none"></div>
+      	</div>
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_80723f51c9a7a04e85a51bd95_12acd735aa" tabindex="-1" value=""></div>
+          <div class="form-field clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button block--color-hard"></div>
+      </div>
+    </form>
+    </div>
+
+
+
+
+
+    <!-- Old MailChimp Signup Form
+      <div id="mc_embed_signup">
+      <form action="//google.us14.list-manage.com/subscribe/post?u=80723f51c9a7a04e85a51bd95&amp;id=872cfc7a8e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+
+          <div class="mc-field-group">
+            <label for="mce-EMAIL">get our newsletter</label>
+            <input type="email" value="" name="EMAIL" class="text-field" id="mce-EMAIL" placeholder="email address">
+          </div>
+          <div id="mce-responses" class="clear">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_80723f51c9a7a04e85a51bd95_872cfc7a8e" tabindex="-1" value=""></div>
+          <div class="clear"><input type="submit" value="submit" name="newsletter" id="mc-embedded-subscribe" class="button block--color-hard"></div>
+        </div>
+      </form>
+      </div>
+        -->
+  </div>
+
+</div>
+
+<div class="row align-center">
+  <div class="col-xs-6 horizontal-center">
+    <br />
+    <br />
+    <p>
+    <img title="moneynotlove" alt="moneynotlove" src="images/5/0/8/3/8/5083837acb4af143fc716349fd99bf4f0d407b6f-logo.png" />
+    <!-- <img src="/images/2/a/a/1/0/2aa107e9cad86b38be33aed68865da2dafd8b1cb-logo.png"> -->
+    </p>
+    <p class="text-hard">moneynotlove</p>
+  </div>
+
+</div>
+</footer>
+  
+</body>
+</html>
